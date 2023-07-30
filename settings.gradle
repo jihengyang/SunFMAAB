@@ -1,0 +1,5 @@
+
+rootProject.name = "SunFMAAB"
+include ':app'
+include ':livedynamicfeature'
+include ':mylibrary'
