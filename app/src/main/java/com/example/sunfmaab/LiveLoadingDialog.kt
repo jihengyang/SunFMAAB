@@ -5,7 +5,7 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.ViewGroup
+import android.util.Log
 import android.view.WindowManager
 
 /**
