@@ -33,10 +33,23 @@ android {
     dynamicFeatures = [':livedynamicfeature']
 }
 
+// 字节码编织工具，用于处理工信部隐私问题屏蔽第三方敏感接口调用
+apply plugin: 'me.ele.lancet'
+lancet {
+    checkUselessProxyMethodEnable true
+    useFileLog "out.log"
+    globalProxy {
+        globalProxyClassName ""
+    }
+    uselessLancetCheckList = [
+    ]
+}
+
 dependencies {
 
+    implementation 'androidx.core:core:1.0.0'
     implementation 'androidx.core:core-ktx:1.0.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.4.10"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.3.41"
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
@@ -44,4 +57,11 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    implementation("com.bytedance.tiktok:df-ondemand-mock:1.0.7")
+    implementation("com.bytedance.android:lancet-base:2.0.15-alpha.30-tt")
+
+    implementation("com.google.android.play:core:1.9.0")
+    implementation("com.google.code.gson:gson:2.8.5")
+    implementation("com.bytedance.keva:keva:1.6.7")
+
 }

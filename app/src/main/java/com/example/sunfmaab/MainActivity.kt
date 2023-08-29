@@ -6,8 +6,9 @@ import android.os.Handler
 import android.os.HandlerThread
 import android.util.Log
 import android.view.View
-import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
+import com.google.android.play.core.splitinstall.SplitInstallRequest
 
 class MainActivity : AppCompatActivity() {
     private val handler by lazy {
@@ -28,9 +29,30 @@ class MainActivity : AppCompatActivity() {
 //            setCanceledOnTouchOutside(true)
 //        }.show()
         findViewById<View>(R.id.center_btn).setOnClickListener {
-            Intent(this@MainActivity, Class.forName("com.example.livedynamicfeature.LivePlayerActivity")).run {
-                startActivity(this)
-            }
+            val request =
+                SplitInstallRequest
+                    .newBuilder()
+                    .addModule("livedynamicfeature")
+                    .build()
+
+            val splitInstallManager = SplitInstallManagerFactory.create(this@MainActivity)
+            splitInstallManager
+                .startInstall(request)
+                .addOnSuccessListener { sessionId ->
+                    Log.i("MyLog", "success")
+                    Intent(
+                        this@MainActivity,
+                        Class.forName("com.example.livedynamicfeature.LivePlayerActivity")
+                    ).run {
+                        startActivity(this)
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.i("MyLog", "failed")
+                }
+                .addOnCompleteListener {
+                    Log.i("MyLog", "complete")
+                }
         }
         Log.i("MyLog", "MainActivity onCreate, $this")
 //        supportFragmentManager.beginTransaction()

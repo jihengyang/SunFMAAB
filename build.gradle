@@ -2,6 +2,10 @@
 
 buildscript {
     repositories {
+        maven {
+            // 公司收敛maven仓库，App只使用android_public。若发现有依赖无法下载，可向基础技术组反馈
+            url 'https://maven.byted.org/repository/android_public/'
+        }
         // Check that you have the following line (if not, add it):
         mavenLocal()
         google()  // Google's Maven repository
@@ -9,13 +13,18 @@ buildscript {
     }
     dependencies {
         // Add this line
-        classpath 'com.android.tools.build:gradle:4.2.0'
+        classpath 'com.android.tools.build:gradle:4.1.0'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.30'
+        classpath 'com.bytedance.android:lancet-plugin:2.0.9'
     }
 }
 
 allprojects {
     repositories {
+        maven {
+            // 公司收敛maven仓库，App只使用android_public。若发现有依赖无法下载，可向基础技术组反馈
+            url 'https://maven.byted.org/repository/android_public/'
+        }
         mavenLocal()
         jcenter()
         mavenCentral()
